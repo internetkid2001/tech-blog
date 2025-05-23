@@ -5,6 +5,7 @@ const hardwareProjects = [
   {
     id: "main-unraid-server",
     name: "Main Unraid Server (Production)",
+    ipAddress: "192.168.1.144",
     details: [
       { label: "Motherboard", value: "ASRock Z690 Pro RS" },
       { label: "BIOS", value: "American Megatrends International, LLC. Version 12.07 (Nov 17, 2022)" },
@@ -27,7 +28,6 @@ const hardwareProjects = [
       "code-server (VS Code in browser)", "Krusader (file manager)",
       "nzbget (Usenet downloader)",
       "Tautulli (Plex monitoring)", "MySpeed (network speed testing)",
-      // "Streamlit dashboards" (Mentioned in role, specific container name not provided)
     ],
     virtualMachines: [
       "Pop!_OS Linux (Desktop VM for testing/development)",
@@ -39,6 +39,7 @@ const hardwareProjects = [
   {
     id: "backup-unraid-server",
     name: "Backup Unraid Server (Redundancy)",
+    ipAddress: "192.168.1.248",
     details: [
       { label: "Model", value: "Dell PowerEdge R720xd" },
       { label: "Motherboard", value: "Dell Inc. 0C4Y3R Version A02" },
@@ -58,12 +59,34 @@ const hardwareProjects = [
     ],
     dockerServices: [
       "binhex-krusader", "IPMI-Tools",
-      // "All-The-Mods-9 (Minecraft - often stopped)", "binhex-crafty-4 (often stopped)"
     ],
     virtualMachines: [
-      "Windows 11"
+      "Windows 11 (stopped)"
     ],
     storageSummary: "Provides secondary storage capabilities, primarily for backups of media and system data from the Main Unraid server. Specific drive configuration not detailed but focuses on redundancy."
+  },
+  {
+    id: "opnsense-firewall",
+    name: "OPNsense Firewall Router",
+    ipAddress: "192.168.1.1 (Gateway)", // Assuming standard gateway IP
+    details: [
+      { label: "Hardware Model", value: "Dell Optiplex 7010" },
+      { label: "CPU", value: "Intel(R) Core(TM) i5-3570 CPU @ 3.40GHz (4 cores, 4 threads)" },
+      { label: "RAM", value: "16 GB" }, // Converted from 16232 MB
+      { label: "OPNsense Version", value: "24.1.10_8-amd64" },
+      { label: "Operating System", value: "FreeBSD 13.2-RELEASE-p11" },
+      { label: "SSL Version", value: "OpenSSL 3.0.14" }
+    ],
+    roles: [
+      "Primary network gateway and firewall for the homelab.",
+      "Manages DHCP, NAT, and DNS (Unbound DNS with blocklists).",
+      "Handles inter-VLAN routing and enforces security policies between network segments (planned).",
+      "Provides secure remote access capabilities via port forwarding and VPN (if configured).",
+      "Monitors and controls network traffic, enhancing overall network security."
+    ],
+    dockerServices: [], // Not applicable for a dedicated firewall typically
+    virtualMachines: [], // Not applicable
+    storageSummary: "Utilizes the internal storage of the Dell Optiplex 7010 for OPNsense OS and configuration."
   }
 ];
 
@@ -79,7 +102,7 @@ const HardwareProjects = () => {
             {project.ipAddress && <p className="text-sm text-gray-500 mb-4">IP Address: {project.ipAddress}</p>}
             
             <div className="mb-6">
-              <h3 className="text-lg font-semibold mt-4 mb-2 text-slate-700">Hardware Specifications:</h3>
+              <h3 className="text-lg font-semibold mt-4 mb-2 text-slate-700">Hardware & Software Specifications:</h3>
               <ul className="list-disc pl-5 space-y-1 text-sm text-gray-700">
                 {project.details.map(detail => (
                   <li key={detail.label}><strong className="font-medium">{detail.label}:</strong> {detail.value}</li>

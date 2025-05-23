@@ -1,48 +1,28 @@
-
+// src/components/BlogContent.tsx
 import React from 'react';
 import BlogPost from './BlogPost';
 import HomelabNetwork from './HomelabNetwork';
+import { posts } from '@/lib/blogData'; // Import posts from the new location
+import { Link } from 'react-router-dom'; // <-- ADD THIS LINE
 
 interface BlogContentProps {
   currentContent: string;
 }
 
 const BlogContent: React.FC<BlogContentProps> = ({ currentContent }) => {
-  const posts = [
-    {
-      title: "Building a Kubernetes Cluster in My Homelab",
-      excerpt: "A deep dive into setting up a production-grade Kubernetes cluster using Raspberry Pi 4s and exploring container orchestration at home.",
-      date: "December 15, 2024",
-      category: "Kubernetes",
-      readTime: "8 min read",
-      image: "photo-1518770660439-4636190af475",
-    },
-    {
-      title: "Implementing VLAN Segmentation for Home Network Security",
-      excerpt: "How I segmented my home network using VLANs to isolate IoT devices and improve overall network security.",
-      date: "December 10, 2024",
-      category: "Networking",
-      readTime: "6 min read",
-      image: "photo-1461749280684-dccba630e2f6"
-    },
-    {
-      title: "Setting Up Proxmox VE for Virtualization",
-      excerpt: "My experience setting up Proxmox Virtual Environment for running multiple VMs and containers efficiently.",
-      date: "December 5, 2024",
-      category: "Virtualization",
-      readTime: "10 min read",
-      image: "photo-1486312338219-ce68d2c6f44d"
-    },
+  const tableOfContentsLinks = [
+    { title: "Home Lab Enterprise Network Build — Master Documentation (2025)", href: "#", contentKey: "homelab-network", isPageLink: false, pageSlug: "homelab-network"},
+    ...posts.map(post => ({ title: post.title, href: `/blog/${post.slug}`, contentKey: "latest", isPageLink: true, pageSlug: `/blog/${post.slug}`}))
   ];
-  
+
   return (
-    <main className="p-6 max-w-7xl mx-auto">
+    <main className="p-6 max-w-7xl mx-auto w-full">
       {currentContent === 'latest' && (
         <section className="mb-12">
-          <h2 className="text-2xl font-bold text-slate-800 mb-6">Latest Posts</h2>
-          <div className="grid grid-cols-1 gap-6">
-            {posts.map((post, index) => (
-              <BlogPost key={index} {...post} />
+          <h2 className="text-3xl font-bold text-slate-800 mb-8 text-center">Latest Insights & Projects</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {posts.map((post) => (
+              <BlogPost key={post.slug} {...post} />
             ))}
           </div>
         </section>
@@ -53,25 +33,25 @@ const BlogContent: React.FC<BlogContentProps> = ({ currentContent }) => {
       )}
       
       {currentContent === 'latest' && (
-        <section className="mb-8">
-          <h2 className="text-2xl font-bold text-slate-800 mb-6">Table of Contents</h2>
-          <div className="bg-gray-50 border border-gray-100 rounded-lg p-6">
+        <section className="my-12 py-8 border-t border-gray-200">
+          <h2 className="text-2xl font-bold text-slate-800 mb-6 text-center">Explore Documentation</h2>
+          <div className="bg-slate-50 border border-slate-200 rounded-lg p-6 max-w-2xl mx-auto">
             <ul className="space-y-3">
-              <li className="text-blue-600 hover:underline">
-                <a href="#homelab-network">Home Lab Enterprise Network Build — Master Documentation (2025)</a>
-              </li>
-              <li className="text-blue-600 hover:underline">
-                <a href="#">Ransomware Resistant Backups with btrbk</a>
-              </li>
-              <li className="text-blue-600 hover:underline">
-                <a href="#">Live Backups with btrbk</a>
-              </li>
-              <li className="text-blue-600 hover:underline">
-                <a href="#">Knowledgebases with Outline</a>
-              </li>
-              <li className="text-blue-600 hover:underline">
-                <a href="#">Remote Administration with Guacamole</a>
-              </li>
+              {tableOfContentsLinks.map(link => (
+                 <li key={link.title} className="text-blue-700 hover:text-blue-900 hover:underline">
+                   {link.isPageLink ? (
+                     <Link to={link.pageSlug || '#'}>{link.title}</Link>
+                   ) : (
+                     <a href={link.href} onClick={(e) => {
+                         e.preventDefault();
+                         // This part would need to be connected to your Index.tsx state management
+                         alert(`This should ideally trigger a view change to: ${link.contentKey}`);
+                     }}>
+                       {link.title}
+                     </a>
+                   )}
+                 </li>
+              ))}
             </ul>
           </div>
         </section>

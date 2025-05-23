@@ -52,6 +52,26 @@ const projects = [
       "Google Analytics with route-based page view tracking.", //
       "Automated deployment to Firebase Hosting via GitHub Actions on merge to main and previews for PRs.", //
     ]
+  },
+  {
+    title: "Scale Explorer",
+    repoUrl: undefined, // Not specified in the README
+    liveUrls: [], // Not specified in the README
+    description: "An interactive web application designed to help musicians and students visualize and understand musical scales across various instruments. It provides three primary views: a fretboard, tablature, and standard notation, all updated in real-time based on user selections.",
+    techStack: [
+      { category: "Framework", details: "Next.js (bootstrapped with create-next-app)" }, //
+      // Other tech stack details like styling, specific libraries, etc., are not in the provided README.
+    ],
+    keyFeatures: [
+      "Customizable Scales: Choose from predefined formulas or define custom scales using semitone intervals.",
+      "Flexible Tunings: Select common instrument tunings or input custom string tunings.",
+      "Dynamic Fretboard Visualization: Highlights scale notes on an interactive fretboard; adjust strings and visible frets.",
+      "Viewport Controller: Draggable slider to navigate the 24-fret range, updating all views.",
+      "Tablature Generation: Instant tablature in ASCII or styled HTML format.",
+      "Standard Notation Display: Shows selected scale notes in treble clef.",
+      "Root Note Highlighting: Root note is prominently highlighted in all views.",
+      "Auditory Feedback: Play notes displayed on the fretboard.",
+    ]
   }
 ];
 

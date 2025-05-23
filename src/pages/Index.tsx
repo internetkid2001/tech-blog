@@ -1,10 +1,10 @@
 // src/pages/Index.tsx
-import React, { useState } from 'react'; // <<<< Ensure useState is imported here
+import React, { useState } from 'react';
 import { SidebarProvider, Sidebar, SidebarContent, SidebarHeader, SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarInset, SidebarGroup, SidebarGroupLabel, SidebarGroupContent } from '@/components/ui/sidebar';
 import BlogContent from '../components/BlogContent';
 import BlogHeader from '../components/BlogHeader';
 import BlogFooter from '../components/BlogFooter';
-import { Server, Network, Database, Shield, Code, Laptop, Terminal, Cpu, Cloud, Wifi, Home, Route } from 'lucide-react';
+import { Server, Network, Database, Shield, Code, Laptop, Terminal, Cpu, Cloud, Wifi, Home, Route, Layers } from 'lucide-react'; // Added Layers icon
 
 const Index = () => {
   const [currentContent, setCurrentContent] = useState('latest'); 
@@ -102,6 +102,12 @@ const Index = () => {
                     <SidebarMenuButton onClick={() => handleMenuClick('cloud-services')}>
                       <Cloud className="h-4 w-4 mr-2" />
                       <span>Cloud Services</span>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                  <SidebarMenuItem> {/* New Item */}
+                    <SidebarMenuButton onClick={() => handleMenuClick('self-hosted-services')}>
+                      <Layers className="h-4 w-4 mr-2" /> {/* Using Layers icon for self-hosted */}
+                      <span>Self-Hosted Apps</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 </SidebarMenu>

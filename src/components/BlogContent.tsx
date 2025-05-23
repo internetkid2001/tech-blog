@@ -6,7 +6,10 @@ import NetworkSetupDetails from './NetworkSetupDetails';
 import StorageSolutionsDetails from './StorageSolutionsDetails';
 import SecurityDetails from './SecurityDetails';
 import VlansNetworkingDetails from './VlansNetworkingDetails';
-import WebDevelopmentProjects from './WebDevelopmentProjects'; // Import new component
+import WebDevelopmentProjects from './WebDevelopmentProjects';
+import HardwareProjects from './HardwareProjects';
+import CloudServices from './CloudServices'; // Import new component
+import SelfHostedApplications from './SelfHostedApplications'; // Import new component
 import { posts } from '@/lib/blogData';
 import { Link } from 'react-router-dom';
 
@@ -38,7 +41,10 @@ const BlogContent: React.FC<BlogContentProps> = ({ currentContent }) => {
       {currentContent === 'storage-solutions' && <StorageSolutionsDetails />}
       {currentContent === 'security' && <SecurityDetails />}
       {currentContent === 'vlans-networking' && <VlansNetworkingDetails />}
-      {currentContent === 'web-development' && <WebDevelopmentProjects />} {/* Add this line */}
+      {currentContent === 'web-development' && <WebDevelopmentProjects />}
+      {currentContent === 'hardware-projects' && <HardwareProjects />}
+      {currentContent === 'cloud-services' && <CloudServices />} {/* Add this line */}
+      {currentContent === 'self-hosted-services' && <SelfHostedApplications />} {/* Add this line */}
       
       { ![ 'latest',
           'homelab-network', 
@@ -46,11 +52,13 @@ const BlogContent: React.FC<BlogContentProps> = ({ currentContent }) => {
           'storage-solutions', 
           'security', 
           'vlans-networking',
-          'web-development' // Add to exclusion list for placeholder
+          'web-development',
+          'hardware-projects',
+          'cloud-services', // Add to exclusion list
+          'self-hosted-services' // Add to exclusion list
         ].includes(currentContent) &&
-        currentContent !== 'automation' && // Keep other placeholders if they exist
-        currentContent !== 'hardware-projects' &&
-        currentContent !== 'cloud-services' && (
+        currentContent !== 'automation' && // Keep placeholder for automation
+         (
         <div className="text-center p-10">
           <h3 className="text-xl text-gray-600">Content for '{currentContent}' is coming soon or view <Link to="/" className="text-blue-600 hover:underline">Latest Posts</Link>.</h3>
         </div>
@@ -67,12 +75,9 @@ const BlogContent: React.FC<BlogContentProps> = ({ currentContent }) => {
                        {link.isPageLink ? (
                          <Link to={link.pageSlug || '#'}>{link.title}</Link>
                        ) : (
-                         // For non-page links, you might want to trigger handleMenuClick from Index.tsx
-                         // This requires passing down the handleMenuClick function or using a context.
-                         // For now, this alert is a placeholder for that logic.
                          <a href={link.href} onClick={(e) => {
                              e.preventDefault();
-                             alert(`This should ideally trigger a view change to: ${link.contentKey}`);
+                             alert(`This should ideally trigger a view change to: ${link.contentKey}. You might need to implement a callback or context for this.`);
                          }}>
                            {link.title}
                          </a>

@@ -1,24 +1,22 @@
 // src/components/BlogPost.tsx
 import React from 'react';
-import { Link } from 'react-router-dom'; // Import Link
+import { Link } from 'react-router-dom';
 
 interface BlogPostProps {
-  slug: string; // Add slug to props
+  slug: string;
   title: string;
   excerpt: string;
-  date: string;
   category: string;
-  readTime: string;
+  // readTime: string; // Removed readTime
   image: string;
 }
 
 const BlogPost: React.FC<BlogPostProps> = ({
-  slug, // Destructure slug
+  slug,
   title,
   excerpt,
-  date,
   category,
-  readTime,
+  // readTime, // Removed readTime
   image
 }) => {
   return (
@@ -35,11 +33,11 @@ const BlogPost: React.FC<BlogPostProps> = ({
           <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs font-medium">
             {category}
           </span>
-          <span className="text-gray-500 text-xs">{date} &middot; {readTime}</span>
+          {/* Removed date and readTime display */}
         </div>
         
         <h3 className="text-lg font-bold text-slate-800 mb-2 group-hover:text-blue-600 transition-colors">
-          <Link to={`/blog/${slug}`}>{title}</Link> {/* Updated Link */}
+          <Link to={`/blog/${slug}`}>{title}</Link>
         </h3>
         
         <p className="text-gray-600 text-sm mb-4 line-clamp-3 flex-grow">

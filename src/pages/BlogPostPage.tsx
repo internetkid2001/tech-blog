@@ -1,10 +1,10 @@
 // src/pages/BlogPostPage.tsx
 import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { posts, PostData } from '@/lib/blogData'; // Import posts and PostData type
+import { useParams, Link as RouterLink } from 'react-router-dom';
+import { posts, PostData } from '@/lib/blogData';
 import BlogHeader from '@/components/BlogHeader';
 import BlogFooter from '@/components/BlogFooter';
-import NotFound from './NotFound'; // For handling posts not found
+import NotFound from './NotFound';
 import { SidebarProvider, Sidebar, SidebarContent, SidebarHeader, SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarInset } from '@/components/ui/sidebar';
 import { Home, ArrowLeft } from 'lucide-react';
 
@@ -28,9 +28,8 @@ const BlogPostPage = () => {
   }
 
   return (
-    <SidebarProvider defaultOpen={true}> {/* Assuming you want sidebar consistency */}
+    <SidebarProvider defaultOpen={true}>
       <div className="min-h-screen flex w-full bg-white">
-        {/* You can optionally include a minimal sidebar here or reuse the main one */}
         <Sidebar className="w-64 border-r border-gray-100 hidden md:flex flex-col">
            <SidebarHeader className="p-4 border-b border-gray-100">
              <h2 className="text-xl font-bold text-slate-800">Tech Blog</h2>
@@ -38,27 +37,27 @@ const BlogPostPage = () => {
            <SidebarContent>
             <SidebarMenu className="p-2">
                 <SidebarMenuItem>
-                  <Link to="/" className="w-full">
+                  <RouterLink to="/" className="w-full">
                     <SidebarMenuButton>
                         <Home className="h-4 w-4 mr-2" />
                         <span>Home</span>
                     </SidebarMenuButton>
-                  </Link>
+                  </RouterLink>
                 </SidebarMenuItem>
                 <SidebarMenuItem>
-                   <Link to="/" className="w-full"> {/* Adjust if you have a specific blog listing page */}
+                   <RouterLink to="/" className="w-full">
                     <SidebarMenuButton>
                         <ArrowLeft className="h-4 w-4 mr-2" />
                         <span>Back to Posts</span>
                     </SidebarMenuButton>
-                  </Link>
+                  </RouterLink>
                 </SidebarMenuItem>
             </SidebarMenu>
            </SidebarContent>
         </Sidebar>
         
         <SidebarInset className="flex-1 flex flex-col">
-          <BlogHeader /> {/* Reusing the existing header */}
+          <BlogHeader />
           <main className="flex-grow p-6 md:p-8 lg:p-12 max-w-4xl mx-auto w-full">
             <article className="bg-white shadow-xl rounded-lg overflow-hidden">
               <img 
@@ -71,7 +70,7 @@ const BlogPostPage = () => {
                   <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold mr-2">
                     {post.category}
                   </span>
-                  <span className="text-gray-600 text-sm">{post.date} &middot; {post.readTime}</span>
+                  {/* Removed date and readTime display */}
                 </div>
                 <h1 className="text-3xl md:text-4xl font-bold text-slate-800 mb-6">{post.title}</h1>
                 {typeof post.fullContent === 'string' ? (
@@ -82,12 +81,12 @@ const BlogPostPage = () => {
               </div>
             </article>
             <div className="mt-8 text-center">
-                <Link to="/" className="text-blue-600 hover:text-blue-800 underline font-medium">
+                <RouterLink to="/" className="text-blue-600 hover:text-blue-800 underline font-medium">
                     &larr; Back to all posts
-                </Link>
+                </RouterLink>
             </div>
           </main>
-          <BlogFooter /> {/* Reusing the existing footer */}
+          <BlogFooter />
         </SidebarInset>
       </div>
     </SidebarProvider>

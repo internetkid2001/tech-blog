@@ -1,9 +1,13 @@
 // src/components/BlogContent.tsx
 import React from 'react';
 import BlogPost from './BlogPost';
-import HomelabNetwork from './HomelabNetwork';
-import { posts } from '@/lib/blogData'; // Import posts from the new location
-import { Link } from 'react-router-dom'; // <-- ADD THIS LINE
+import HomelabNetwork from './HomelabNetwork'; // Overall Infrastructure
+import NetworkSetupDetails from './NetworkSetupDetails'; // New
+import StorageSolutionsDetails from './StorageSolutionsDetails'; // New
+import SecurityDetails from './SecurityDetails'; // New
+import VlansNetworkingDetails from './VlansNetworkingDetails'; // New
+import { posts } from '@/lib/blogData';
+import { Link } from 'react-router-dom';
 
 interface BlogContentProps {
   currentContent: string;
@@ -27,12 +31,32 @@ const BlogContent: React.FC<BlogContentProps> = ({ currentContent }) => {
           </div>
         </section>
       )}
-      
-      {currentContent === 'homelab-network' && (
-        <HomelabNetwork />
+
+      {currentContent === 'homelab-network' && <HomelabNetwork />}
+      {currentContent === 'network-setup' && <NetworkSetupDetails />}
+      {currentContent === 'storage-solutions' && <StorageSolutionsDetails />}
+      {currentContent === 'security' && <SecurityDetails />}
+      {currentContent === 'vlans-networking' && <VlansNetworkingDetails />}
+
+      {/* Placeholder for other sections if clicked from sidebar, or default to latest/homelab */}
+      { ![ 'latest',
+          'homelab-network', 
+          'network-setup', 
+          'storage-solutions', 
+          'security', 
+          'vlans-networking'
+        ].includes(currentContent) &&
+        currentContent !== 'web-development' && // Assuming these might have dedicated pages later
+        currentContent !== 'automation' &&
+        currentContent !== 'hardware-projects' &&
+        currentContent !== 'cloud-services' && (
+        <div className="text-center p-10">
+          <h3 className="text-xl text-gray-600">Content for '{currentContent}' is coming soon or view <Link to="/" className="text-blue-600 hover:underline">Latest Posts</Link>.</h3>
+        </div>
       )}
-      
-      {currentContent === 'latest' && (
+
+      {/* You might want to conditionally render the Table of Contents or refine its purpose */}
+      {(currentContent === 'latest' || currentContent === 'homelab-network') && ( // Example: Show ToC on these pages
         <section className="my-12 py-8 border-t border-gray-200">
           <h2 className="text-2xl font-bold text-slate-800 mb-6 text-center">Explore Documentation</h2>
           <div className="bg-slate-50 border border-slate-200 rounded-lg p-6 max-w-2xl mx-auto">

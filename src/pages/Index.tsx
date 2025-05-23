@@ -1,16 +1,14 @@
 // src/pages/Index.tsx
-import React, { useState } from 'react';
+import React, { useState } from 'react'; // <<<< Ensure useState is imported here
 import { SidebarProvider, Sidebar, SidebarContent, SidebarHeader, SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarInset, SidebarGroup, SidebarGroupLabel, SidebarGroupContent } from '@/components/ui/sidebar';
 import BlogContent from '../components/BlogContent';
 import BlogHeader from '../components/BlogHeader';
 import BlogFooter from '../components/BlogFooter';
-import { Server, Network, Database, Shield, Code, Laptop, Terminal, Cpu, Cloud, Wifi, Home, Route } from 'lucide-react'; // Added Route for VLANs
+import { Server, Network, Database, Shield, Code, Laptop, Terminal, Cpu, Cloud, Wifi, Home, Route } from 'lucide-react';
 
 const Index = () => {
-  // Added new states: 'network-setup', 'storage-solutions', 'security', 'vlans-networking'
-  // 'homelab-network' maps to "Infrastructure"
   const [currentContent, setCurrentContent] = useState('latest'); 
-
+  
   const handleMenuClick = (content: string) => {
     setCurrentContent(content);
   };
@@ -31,13 +29,13 @@ const Index = () => {
                 </SidebarMenuButton>
               </SidebarMenuItem>
             </SidebarMenu>
-
+            
             <SidebarGroup>
               <SidebarGroupLabel>Homelab</SidebarGroupLabel>
               <SidebarGroupContent>
                 <SidebarMenu>
                   <SidebarMenuItem>
-                    <SidebarMenuButton onClick={() => handleMenuClick('homelab-network')}> {/* This is Infrastructure */}
+                    <SidebarMenuButton onClick={() => handleMenuClick('homelab-network')}>
                       <Server className="h-4 w-4 mr-2" />
                       <span>Infrastructure</span>
                     </SidebarMenuButton>
@@ -62,21 +60,20 @@ const Index = () => {
                   </SidebarMenuItem>
                   <SidebarMenuItem>
                     <SidebarMenuButton onClick={() => handleMenuClick('vlans-networking')}>
-                      <Route className="h-4 w-4 mr-2" /> {/* Changed Wifi to Route for VLANs icon */}
+                      <Route className="h-4 w-4 mr-2" />
                       <span>VLANs & Networking</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 </SidebarMenu>
               </SidebarGroupContent>
             </SidebarGroup>
-
-            {/* Software Projects Section (remains unchanged for now) */}
+            
             <SidebarGroup>
               <SidebarGroupLabel>Software Projects</SidebarGroupLabel>
               <SidebarGroupContent>
                 <SidebarMenu>
                   <SidebarMenuItem>
-                    <SidebarMenuButton onClick={() => handleMenuClick('web-development')}>
+                    <SidebarMenuButton onClick={() => handleMenuClick('web-development')}> 
                       <Code className="h-4 w-4 mr-2" />
                       <span>Web Development</span>
                     </SidebarMenuButton>
@@ -90,8 +87,7 @@ const Index = () => {
                 </SidebarMenu>
               </SidebarGroupContent>
             </SidebarGroup>
-
-            {/* Other Tech Section (remains unchanged for now) */}
+            
             <SidebarGroup>
               <SidebarGroupLabel>Other Tech</SidebarGroupLabel>
               <SidebarGroupContent>
@@ -113,10 +109,10 @@ const Index = () => {
             </SidebarGroup>
           </SidebarContent>
         </Sidebar>
-
+        
         <SidebarInset className="flex-1 flex flex-col">
           <BlogHeader />
-          <div className="flex-grow overflow-y-auto"> {/* Added for scrolling long content */}
+          <div className="flex-grow overflow-y-auto">
             <BlogContent currentContent={currentContent} />
           </div>
           <BlogFooter />
